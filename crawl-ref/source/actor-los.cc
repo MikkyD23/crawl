@@ -25,13 +25,13 @@ bool player::see_cell(const coord_def &p) const
 {
     if (!map_bounds(p))
         return false; // Players can't see (-1,-1) but maybe can see (0,0).
-    if (true)
+    if (crawl_state.game_is_arena() || crawl_state.arena_suspended)
         return true;
     if (!in_bounds(pos()))
         return false; // A non-arena player at (0,0) can't see anything.
     if (wizard_vision || you.duration[DUR_REVELATION])
         return (pos() - p).rdist() <= current_vision;
-    return actor::see_cell(p);
+    return cell_see_cell(pos(), p, LOS_NONE);
 }
 
 bool actor::can_see(const actor &target) const

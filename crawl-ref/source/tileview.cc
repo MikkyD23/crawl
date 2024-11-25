@@ -1085,6 +1085,12 @@ void tile_draw_map_cell(const coord_def& gc, bool foreground_only)
     if (!foreground_only)
         tile_env.bk_bg(gc) = _get_floor_bg(gc);
 
+    if(!in_bounds(gc))
+        return; 
+        // this is hacky because it never normally breaks here, so we are doing an extra
+        // check every time for no reason. this is just failing because of insane LOS
+        // in dungeon mode. (only performance penalty?)
+
     if (you.see_cell(gc))
     {
         const coord_def ep = grid2show(gc);
