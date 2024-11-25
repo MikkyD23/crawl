@@ -793,7 +793,7 @@ void update_vision_range()
     }
 
     ASSERT(you.current_vision >= 0);
-    set_los_radius(you.current_vision);
+    set_los_radius(LOS_RADIUS);
 }
 
 /**
