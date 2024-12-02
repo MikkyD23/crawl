@@ -115,13 +115,15 @@ static void _update_globallos_at(const coord_def& p, los_type l)
 
 bool cell_see_cell(const coord_def& p, const coord_def& q, los_type l)
 {
-    if (l == LOS_NONE)
-        return true;
 
     losfield_t* flags = _lookup_globallos(p, q);
 
     if (!flags)
         return false; // outside range
+
+
+    if (l == LOS_NONE)
+        return true; // check range first so we don't give errors by having player LOS beyond normal
 
     if (!(*flags & (l << LOS_KNOWN)))
         _update_globallos_at(p, l);
